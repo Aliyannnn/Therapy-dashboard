@@ -38,7 +38,7 @@ export default function AdminUsersPage() {
       setLoading(true);
       const filterType = userTypeFilter === 'all' ? undefined : userTypeFilter;
       const response = await getAllUsers(0, 100, filterType, false);
-      
+
       const usersData = Array.isArray(response.data) ? response.data : [];
       setUsers(usersData);
     } catch (error) {
@@ -98,27 +98,29 @@ export default function AdminUsersPage() {
             className="pl-10 bg-gray-900 border-gray-800 text-white"
           />
         </div>
-        
+
         {/* User Type Filter */}
         <div className="flex items-center gap-3">
           <Filter className="w-4 h-4 text-gray-400" />
           <div className="flex gap-2">
             <Button
-              variant={userTypeFilter === 'all' ? 'default' : 'secondary'}
+              variant={userTypeFilter === 'all' ? 'default' : 'outline'}
               onClick={() => setUserTypeFilter('all')}
               className={userTypeFilter === 'all' ? 'bg-white text-black' : ''}
             >
               All Users ({users.length})
             </Button>
+
             <Button
-              variant={userTypeFilter === 'vr' ? 'default' : 'secondary'}
+              variant={userTypeFilter === 'vr' ? 'default' : 'outline'}
               onClick={() => setUserTypeFilter('vr')}
               className={userTypeFilter === 'vr' ? 'bg-purple-500 text-white' : ''}
             >
               VR Users
             </Button>
+
             <Button
-              variant={userTypeFilter === 'dashboard' ? 'default' : 'secondary'}
+              variant={userTypeFilter === 'dashboard' ? 'default' : 'outline'}
               onClick={() => setUserTypeFilter('dashboard')}
               className={userTypeFilter === 'dashboard' ? 'bg-blue-500 text-white' : ''}
             >
@@ -126,6 +128,7 @@ export default function AdminUsersPage() {
             </Button>
           </div>
         </div>
+
       </div>
 
       {/* Users List */}
@@ -143,10 +146,10 @@ export default function AdminUsersPage() {
         ) : (
           <div className="grid gap-4">
             {filteredUsers.map((user) => (
-              <UserCard 
-                key={user.user_id} 
-                user={user} 
-                onUpdate={fetchUsers} 
+              <UserCard
+                key={user.user_id}
+                user={user}
+                onUpdate={fetchUsers}
                 onEdit={() => setEditingUser(user)}
               />
             ))}
@@ -180,13 +183,13 @@ export default function AdminUsersPage() {
   );
 }
 
-function UserCard({ 
-  user, 
-  onUpdate, 
-  onEdit 
-}: { 
-  user: User; 
-  onUpdate: () => void; 
+function UserCard({
+  user,
+  onUpdate,
+  onEdit
+}: {
+  user: User;
+  onUpdate: () => void;
   onEdit: () => void;
 }) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -214,11 +217,10 @@ function UserCard({
                 <h3 className="font-semibold text-lg text-white">{user.name}</h3>
                 {user.user_type && (
                   <span
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      user.user_type === 'vr'
+                    className={`text-xs px-2 py-1 rounded-full ${user.user_type === 'vr'
                         ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
                         : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
-                    }`}
+                      }`}
                   >
                     {user.user_type.toUpperCase()}
                   </span>
@@ -443,13 +445,13 @@ function CreateUserModal({ onClose, onSuccess }: { onClose: () => void; onSucces
   );
 }
 
-function EditUserModal({ 
-  user, 
-  onClose, 
-  onSuccess 
-}: { 
-  user: User; 
-  onClose: () => void; 
+function EditUserModal({
+  user,
+  onClose,
+  onSuccess
+}: {
+  user: User;
+  onClose: () => void;
   onSuccess: () => void;
 }) {
   const [formData, setFormData] = useState({
